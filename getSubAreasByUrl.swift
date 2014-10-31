@@ -35,55 +35,56 @@ for (key, departid) in areas {
     
     var sem:dispatch_semaphore_t = dispatch_semaphore_create(0)
     
-//    println("request: \(request.HTTPBody) ")
+    //    println("request: \(request.HTTPBody) ")
     var task = session.dataTaskWithRequest(request, completionHandler: {data, response, error -> Void in
-//        println("Response: \(response)")
-        
-        var dataStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-        
-        println("------get dataStr")
-        if let tmpDataStr = dataStr{
-            var dataAry =  tmpDataStr.componentsSeparatedByString(",")
-            for street in dataAry{
-                println("street is \(street)->\(key)")
-                let dicKey:String = street as String
-                let dicValue:String = key
-                if let testValue = plistDic[dicKey] {
-                    
-                }else{
-                    plistDic[dicKey] = dicValue
-                }
-            }
-        }
-        
-        //println("Body: \(dataStr)")
-        var err: NSError?
-        //    var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
-        
-        // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
-        if(err != nil) {
-            println(err!.localizedDescription)
-//            let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-//            println("Error could not parse JSON: '\(jsonStr)'")
-        }
-        else {
-            //
-            // The JSONObjectWithData constructor didn't return an error. But, we should still
-            // check and make sure that json has a value using optional binding.
-            //        if let parseJSON = json {
-            //            // Okay, the parsedJSON is here, let's get the value for 'success' out of it
-            //            var success = parseJSON["success"] as? Int
-            //            println("Succes: \(success)")
-            //        }
-            //        else {
-            //            // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
-            //            let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
-            //            println("Error could not parse JSON: \(jsonStr)")
-            //        }
-        }
-        dispatch_semaphore_signal(sem)
-        
-    })
+                                                                        //        println("Response: \(response)")
+                                                                        
+                                                                        
+                                                                        //println("Body: \(dataStr)")
+                                                                        var err: NSError?
+                                                                        //    var json = NSJSONSerialization.JSONObjectWithData(data, options: .MutableLeaves, error: &err) as? NSDictionary
+                                                                        
+                                                                        // Did the JSONObjectWithData constructor return an error? If so, log the error to the console
+                                                                        if(err != nil) {
+                                                                            println(err!.localizedDescription)
+                                                                        //            let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                                                                        //            println("Error could not parse JSON: '\(jsonStr)'")
+                                                                        }
+                                                                        else {
+                                               var dataStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                                               
+                                               println("------get dataStr")
+                                               if let tmpDataStr = dataStr{
+                                                   var dataAry =  tmpDataStr.componentsSeparatedByString(",")
+                                                   for street in dataAry{
+                                                       println("street is \(street)->\(key)")
+                                                       let dicKey:String = street as String
+                                                       let dicValue:String = key
+                                                       if let testValue = plistDic[dicKey] {
+                                                           
+                                                       }else{
+                                                           plistDic[dicKey] = dicValue
+                                                       }
+                                                   }
+                                               }
+                                               
+                                               //
+                                               // The JSONObjectWithData constructor didn't return an error. But, we should still
+                                               // check and make sure that json has a value using optional binding.
+                                               //        if let parseJSON = json {
+                                               //            // Okay, the parsedJSON is here, let's get the value for 'success' out of it
+                                               //            var success = parseJSON["success"] as? Int
+                                               //            println("Succes: \(success)")
+                                               //        }
+                                               //        else {
+                                               //            // Woa, okay the json object was nil, something went worng. Maybe the server isn't running?
+                                               //            let jsonStr = NSString(data: data, encoding: NSUTF8StringEncoding)
+                                               //            println("Error could not parse JSON: \(jsonStr)")
+                                               //        }
+                                               }
+                                                                        dispatch_semaphore_signal(sem)
+                                                                        
+                                          })
     
     task.resume()
     dispatch_semaphore_wait(sem,DISPATCH_TIME_FOREVER)
