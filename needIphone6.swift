@@ -4,7 +4,6 @@ import Foundation
 import Cocoa
 
 
-//so sad looks notification can't work
 //var notification:NSUserNotification = NSUserNotification()
 //notification.title = "TEST"
 //notification.subtitle = "TTTT"
@@ -14,10 +13,9 @@ import Cocoa
 // notificationCenter.deliverNotification(notification)
 
 
-    //NSFileHandle(forWritingAtPath:)NSFileHandle.fileHandleForWritingAtPath("scanIphone.log")
 var fileLogPath = "scanIphone.log"
- var fileM = NSFileManager.defaultManager()
-//if let fileManager = fileM  {
+var fileM = NSFileManager.defaultManager()
+
 
 if !(fileM.fileExistsAtPath(fileLogPath)) {
     if let dataStr = " ".dataUsingEncoding(NSUTF8StringEncoding) {
@@ -35,6 +33,8 @@ func findIphoneSix(){
     var fileHandle:NSFileHandle = NSFileHandle(forWritingAtPath:fileLogPath)!
     fileHandle.seekToEndOfFile()
     var iphone6Url = "http://store.apple.com/hk-zh/buy-iphone/iphone6/5.5-%E5%90%8B%E8%9E%A2%E5%B9%95-64gb-%E9%8A%80%E8%89%B2-%E5%B7%B2%E8%A7%A3%E9%8E%96"
+    //var iphone6Url = "http://store.apple.com/cn/buy-iphone/iphone6/5.5-%E8%8B%B1%E5%AF%B8%E5%B1%8F%E5%B9%95-64gb-%E9%93%B6%E8%89%B2"
+    
     var request = NSMutableURLRequest(URL: NSURL(string: iphone6Url)!)
     var session = NSURLSession.sharedSession()
     request.HTTPMethod = "GET"
@@ -65,6 +65,7 @@ func findIphoneSix(){
                     
                     let tmpStr:NSString = entryStr as NSString
                     var result = tmpStr.substringToIndex(6)
+
                     if result == "暫時無法提供" {
 
                     }else{
@@ -107,7 +108,7 @@ func findIphoneSix(){
 
 while true{
     findIphoneSix()
-    NSThread.sleepForTimeInterval(30)
+    NSThread.sleepForTimeInterval(15)
     
 }
 
